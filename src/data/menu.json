@@ -1,0 +1,113 @@
+{
+  "version": 1,
+  "categories": [
+    {
+      "id": "beer",
+      "label": "Beer",
+      "items": [
+        {
+          "id": "pilsner",
+          "name": "Pilsner",
+          "description": "Classic Czech lager",
+          "emoji": "🍺",
+          "available": true
+        },
+        {
+          "id": "hefeweizen",
+          "name": "Hefeweizen",
+          "description": "Unfiltered wheat beer",
+          "emoji": "🍺",
+          "available": true
+        },
+        {
+          "id": "ipa",
+          "name": "IPA",
+          "description": "Hoppy India Pale Ale",
+          "emoji": "🍺",
+          "available": true
+        }
+      ]
+    },
+    {
+      "id": "wine",
+      "label": "Wine",
+      "items": [
+        {
+          "id": "rose",
+          "name": "Rosé",
+          "description": "Chilled house rosé",
+          "emoji": "🍷",
+          "available": true
+        },
+        {
+          "id": "white",
+          "name": "White Wine",
+          "description": "Crisp Sauvignon Blanc",
+          "emoji": "🥂",
+          "available": true
+        },
+        {
+          "id": "red",
+          "name": "Red Wine",
+          "description": "Full-bodied Merlot",
+          "emoji": "🍷",
+          "available": true
+        }
+      ]
+    },
+    {
+      "id": "cocktails",
+      "label": "Cocktails",
+      "items": [
+        {
+          "id": "mojito",
+          "name": "Mojito",
+          "description": "Rum, mint, lime, soda",
+          "emoji": "🍹",
+          "available": true
+        },
+        {
+          "id": "spritz",
+          "name": "Aperol Spritz",
+          "description": "Aperol, prosecco, orange",
+          "emoji": "🍊",
+          "available": true
+        }
+      ]
+    },
+    {
+      "id": "soft",
+      "label": "Soft Drinks",
+      "items": [
+        {
+          "id": "water",
+          "name": "Still Water",
+          "description": "500ml bottle",
+          "emoji": "💧",
+          "available": true
+        },
+        {
+          "id": "sparkling",
+          "name": "Sparkling Water",
+          "description": "500ml bottle",
+          "emoji": "💦",
+          "available": true
+        },
+        {
+          "id": "cola",
+          "name": "Cola",
+          "description": "330ml can",
+          "emoji": "🥤",
+          "available": true
+        },
+        {
+          "id": "juice",
+          "name": "Orange Juice",
+          "description": "Freshly squeezed",
+          "emoji": "🍊",
+          "available": true
+        }
+      ]
+    }
+  ]
+}
