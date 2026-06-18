@@ -122,6 +122,17 @@ export default class ServiceJayServer implements Party.Server {
         break;
       }
 
+      case "menu:update": {
+        if (sender.id !== state.hostConnectionId) {
+          send(sender, { type: "error", code: "UNAUTHORIZED", message: "Only the host can update the menu" });
+          return;
+        }
+        state.menu = msg.menu;
+        await this.saveState(state);
+        broadcast(this.room, { type: "room:state", state });
+        break;
+      }
+
       case "room:close": {
         if (sender.id !== state.hostConnectionId) {
           send(sender, { type: "error", code: "UNAUTHORIZED", message: "Only the host can close the room" });

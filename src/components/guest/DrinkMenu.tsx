@@ -1,14 +1,14 @@
-import menuData from "../../data/menu.json";
+import defaultMenuData from "../../data/menu.json";
 import type { Menu } from "../../lib/types";
 import { DrinkCard } from "./DrinkCard";
 
-const menu = menuData as Menu;
-
 interface Props {
+  menu?: Menu | null;
   onOrder: (drinkId: string, drinkName: string, quantity: number, note?: string, selectedOptions?: string[]) => void;
 }
 
-export function DrinkMenu({ onOrder }: Props) {
+export function DrinkMenu({ menu: menuProp, onOrder }: Props) {
+  const menu = menuProp ?? (defaultMenuData as Menu);
   return (
     <div className="flex flex-col gap-6">
       {menu.categories.map((category) => {

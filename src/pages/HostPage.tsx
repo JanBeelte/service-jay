@@ -4,7 +4,8 @@ import { useHostRoom } from "../hooks/useHostRoom";
 import { useRoomStore } from "../store/roomStore";
 import { RoomHeader } from "../components/host/RoomHeader";
 import { OrderList } from "../components/host/OrderList";
-import { LogOut } from "lucide-react";
+import { MenuEditor } from "../components/host/MenuEditor";
+import { LogOut, UtensilsCrossed } from "lucide-react";
 import logo from "../../service-jay.png";
 
 function getStoredRoomName(): string {
@@ -22,8 +23,19 @@ export default function HostPage() {
   const [nameConfirmed, setNameConfirmed] = useState(() => getStoredRoomName().length > 0);
   const [inputName, setInputName] = useState("Service-Jay");
 
-  const { fulfillOrder, markUnavailable, closeRoom } = useHostRoom(roomId!, nameConfirmed ? roomName : "");
+  const [menuEditorOpen, setMenuEditorOpen] = useState(false);
+  const { fulfillOrder, markUnavailable, closeRoom, updateMenu } = useHostRoom(roomId!, nameConfirmed ? roomName : "");
   const roomClosed = useRoomStore((s) => s.roomClosed);
+  const serverMenu = useRoomStore((s) => s.menu);
+
+  function getEditorMenu() {
+    if (serverMenu) return serverMenu;
+    const stored = localStorage.getItem(`menu:${roomId}`);
+    if (stored) {
+      try { return JSON.parse(stored); } catch { /* ignore */ }
+    }
+    return null;
+  }
 
   if (roomClosed) {
     return (
@@ -95,18 +107,38 @@ export default function HostPage() {
             <p className="text-slate-500 text-xs">Host Dashboard</p>
           </div>
         </div>
-        <button
-          onClick={() => {
-            if (confirm("Close this room? All guests will be disconnected.")) {
-              closeRoom();
-            }
-          }}
-          className="flex items-center gap-1.5 text-slate-400 hover:text-red-400 transition-colors text-sm"
-        >
-          <LogOut className="w-4 h-4" />
-          Close Room
-        </button>
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => setMenuEditorOpen(true)}
+            className="flex items-center gap-1.5 text-slate-400 hover:text-amber-400 transition-colors text-sm"
+          >
+            <UtensilsCrossed className="w-4 h-4" />
+            Edit Menu
+          </button>
+          <button
+            onClick={() => {
+              if (confirm("Close this room? All guests will be disconnected.")) {
+                closeRoom();
+              }
+            }}
+            className="flex items-center gap-1.5 text-slate-400 hover:text-red-400 transition-colors text-sm"
+          >
+            <LogOut className="w-4 h-4" />
+            Close Room
+          </button>
+        </div>
       </header>
+
+      {menuEditorOpen && (
+        <MenuEditor
+          currentMenu={getEditorMenu()}
+          onSave={(menu) => {
+            updateMenu(menu);
+            setMenuEditorOpen(false);
+          }}
+          onClose={() => setMenuEditorOpen(false)}
+        />
+      )}
 
       {/* Mobile: single column */}
       <main className="flex-1 p-5 flex flex-col gap-5 max-w-lg mx-auto w-full md:hidden">

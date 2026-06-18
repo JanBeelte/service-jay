@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { usePartyRoom } from "./usePartyRoom";
 import { useRoomStore } from "../store/roomStore";
+import type { Menu } from "../lib/types";
 
 export function useHostRoom(roomId: string, roomName: string) {
   const { send } = usePartyRoom(roomId);
@@ -28,5 +29,10 @@ export function useHostRoom(roomId: string, roomName: string) {
     send({ type: "room:close" });
   }
 
-  return { fulfillOrder, markUnavailable, closeRoom };
+  function updateMenu(menu: Menu) {
+    send({ type: "menu:update", menu });
+    localStorage.setItem(`menu:${roomId}`, JSON.stringify(menu));
+  }
+
+  return { fulfillOrder, markUnavailable, closeRoom, updateMenu };
 }

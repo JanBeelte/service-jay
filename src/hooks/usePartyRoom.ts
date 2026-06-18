@@ -7,7 +7,7 @@ import { useOrderStore } from "../store/orderStore";
 
 export function usePartyRoom(roomId: string) {
   const socketRef = useRef<PartySocket | null>(null);
-  const { setConnectionStatus, setRoomClosed, setRoomName } = useRoomStore();
+  const { setConnectionStatus, setRoomClosed, setRoomName, setMenu } = useRoomStore();
   const { applyRoomState, upsertOrder } = useOrderStore();
 
   useEffect(() => {
@@ -35,6 +35,7 @@ export function usePartyRoom(roomId: string) {
         case "room:state":
           applyRoomState(msg.state);
           setRoomName(msg.state.roomName ?? null);
+          setMenu(msg.state.menu ?? null);
           break;
         case "order:new":
         case "order:updated":

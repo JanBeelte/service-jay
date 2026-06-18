@@ -21,6 +21,7 @@ export interface RoomState {
   createdAt: number;
   closedAt?: number;
   roomName?: string;
+  menu?: Menu;
 }
 
 export interface MenuItemOption {
@@ -57,7 +58,8 @@ export type ClientMessage =
   | { type: "order:place"; order: Omit<Order, "id" | "status" | "fulfilledAt"> }
   | { type: "order:fulfill"; orderId: string }
   | { type: "order:unavailable"; orderId: string }
-  | { type: "room:close" };
+  | { type: "room:close" }
+  | { type: "menu:update"; menu: Menu };
 
 // --- Server → Client ---
 export type ServerMessage =

@@ -138,6 +138,17 @@ export class Room implements DurableObject {
         break;
       }
 
+      case "menu:update": {
+        if (connId !== state.hostConnectionId) {
+          ws.send(JSON.stringify({ type: "error", code: "UNAUTHORIZED", message: "Only the host can update the menu" } satisfies ServerMessage));
+          return;
+        }
+        state.menu = msg.menu;
+        await this.saveState(state);
+        this.broadcast({ type: "room:state", state });
+        break;
+      }
+
       case "room:close": {
         if (connId !== state.hostConnectionId) {
           ws.send(JSON.stringify({ type: "error", code: "UNAUTHORIZED", message: "Only the host can close the room" } satisfies ServerMessage));
