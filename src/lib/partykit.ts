@@ -1,4 +1,4 @@
-export const PARTYKIT_HOST = import.meta.env.VITE_PARTYKIT_HOST || "localhost:8787";
+export const PARTYKIT_HOST = import.meta.env.VITE_PARTYKIT_HOST || "service-jay-ws.feuerschwanz.workers.dev";
 
 export function roomJoinUrl(roomId: string): string {
   return `${location.protocol}//${location.host}/#/guest/${roomId}`;
