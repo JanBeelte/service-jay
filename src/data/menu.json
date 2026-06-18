@@ -3,7 +3,7 @@
   "categories": [
     {
       "id": "beer",
-      "label": "Bier",
+      "label": "Bier & Sekt",
       "items": [
         {
           "id": "bier",
@@ -19,6 +19,15 @@
           "name": "IPA",
           "description": "Hoppy India Pale Ale",
           "emoji": "🍺",
+          "available": true,
+          "options": [],
+          "freeText": true
+        },
+        {
+          "id": "sekt",
+          "name": "Sekt",
+          "description": "",
+          "emoji": "🥂",
           "available": true,
           "options": [],
           "freeText": true
@@ -67,6 +76,20 @@
           "name": "Rum of the Day",
           "description": "",
           "emoji": "🥃",
+          "available": true,
+          "freeText": true
+        }
+      ]
+    },
+    {
+      "id": "custom",
+      "label": "Custom",
+      "items": [
+        {
+          "id": "custom-order",
+          "name": "Custom Order",
+          "description": "Anything not on the menu",
+          "emoji": "✏️",
           "available": true,
           "freeText": true
         }
