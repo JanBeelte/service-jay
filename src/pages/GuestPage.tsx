@@ -24,6 +24,7 @@ export default function GuestPage() {
   const [inputName, setInputName] = useState("");
 
   const roomClosed = useRoomStore((s) => s.roomClosed);
+  const roomName = useRoomStore((s) => s.roomName);
 
   // Only start the WS connection once we have a name
   const { placeOrder } = useGuestRoom(roomId!, nameConfirmed ? guestName : "");
@@ -99,13 +100,15 @@ export default function GuestPage() {
           <ArrowLeft className="w-5 h-5" />
         </button>
         <div className="flex-1">
-          <h1 className="text-white font-bold text-lg leading-tight">Order Drinks</h1>
           <p className="text-slate-500 text-xs">Room {roomId}</p>
         </div>
         <ConnectionDot />
       </header>
 
       <main className="flex-1 p-5 flex flex-col gap-5 max-w-lg mx-auto w-full pb-8">
+        <div className="pt-2 pb-1">
+          <h1 className="text-white font-bold text-3xl leading-tight">{roomName ?? "Order Drinks"}</h1>
+        </div>
         <GuestOrderList />
         <DrinkMenu onOrder={placeOrder} />
       </main>

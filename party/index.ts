@@ -64,7 +64,9 @@ export default class ServiceJayServer implements Party.Server {
     switch (msg.type) {
       case "host:claim": {
         state.hostConnectionId = sender.id;
+        if (msg.roomName) state.roomName = msg.roomName;
         await this.saveState(state);
+        if (msg.roomName) broadcast(this.room, { type: "room:state", state });
         break;
       }
 

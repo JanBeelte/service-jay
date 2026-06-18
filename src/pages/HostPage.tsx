@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useHostRoom } from "../hooks/useHostRoom";
 import { useRoomStore } from "../store/roomStore";
@@ -5,10 +6,22 @@ import { RoomHeader } from "../components/host/RoomHeader";
 import { OrderList } from "../components/host/OrderList";
 import { LogOut } from "lucide-react";
 
+function getStoredRoomName(): string {
+  return sessionStorage.getItem("roomName") ?? "";
+}
+
+function saveRoomName(name: string) {
+  sessionStorage.setItem("roomName", name);
+}
+
 export default function HostPage() {
   const { roomId } = useParams<{ roomId: string }>();
   const navigate = useNavigate();
-  const { fulfillOrder, markUnavailable, closeRoom } = useHostRoom(roomId!);
+  const [roomName, setRoomName] = useState(getStoredRoomName);
+  const [nameConfirmed, setNameConfirmed] = useState(() => getStoredRoomName().length > 0);
+  const [inputName, setInputName] = useState("Service-Jay");
+
+  const { fulfillOrder, markUnavailable, closeRoom } = useHostRoom(roomId!, nameConfirmed ? roomName : "");
   const roomClosed = useRoomStore((s) => s.roomClosed);
 
   if (roomClosed) {
@@ -28,10 +41,56 @@ export default function HostPage() {
     );
   }
 
+  if (!nameConfirmed) {
+    return (
+      <div className="min-h-screen bg-slate-900 flex items-center justify-center p-6">
+        <div className="w-full max-w-sm flex flex-col gap-5">
+          <div className="text-center">
+            <p className="text-3xl mb-2">🏷️</p>
+            <h2 className="text-white font-bold text-xl">Name this room</h2>
+            <p className="text-slate-400 text-sm mt-1">Guests will see this name when they join</p>
+          </div>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              const name = inputName.trim();
+              if (name) {
+                saveRoomName(name);
+                setRoomName(name);
+                setNameConfirmed(true);
+              }
+            }}
+            className="flex flex-col gap-3"
+          >
+            <input
+              type="text"
+              value={inputName}
+              onChange={(e) => setInputName(e.target.value)}
+              placeholder="e.g. Friday Night Drinks"
+              maxLength={50}
+              autoFocus
+              className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400"
+            />
+            <button
+              type="submit"
+              disabled={inputName.trim().length === 0}
+              className="w-full py-3 rounded-xl bg-amber-500 text-slate-900 font-semibold disabled:opacity-40"
+            >
+              Open Room
+            </button>
+          </form>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-slate-900 flex flex-col">
       <header className="bg-slate-900 border-b border-slate-800 px-5 py-4 flex items-center justify-between sticky top-0 z-10">
-        <h1 className="text-white font-bold text-lg">Host Dashboard</h1>
+        <div>
+          <h1 className="text-white font-bold text-2xl leading-tight">{roomName}</h1>
+          <p className="text-slate-500 text-xs">Host Dashboard</p>
+        </div>
         <button
           onClick={() => {
             if (confirm("Close this room? All guests will be disconnected.")) {

@@ -81,7 +81,9 @@ export class Room implements DurableObject {
     switch (msg.type) {
       case "host:claim": {
         state.hostConnectionId = connId;
+        if (msg.roomName) state.roomName = msg.roomName;
         await this.saveState(state);
+        if (msg.roomName) this.broadcast({ type: "room:state", state });
         break;
       }
 

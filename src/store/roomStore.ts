@@ -8,9 +8,11 @@ interface RoomStore {
   role: Role | null;
   connectionStatus: ConnectionStatus;
   roomClosed: boolean;
+  roomName: string | null;
   setRoom: (roomId: string, role: Role) => void;
   setConnectionStatus: (status: ConnectionStatus) => void;
   setRoomClosed: () => void;
+  setRoomName: (name: string | null) => void;
   reset: () => void;
 }
 
@@ -19,9 +21,11 @@ export const useRoomStore = create<RoomStore>((set) => ({
   role: null,
   connectionStatus: "disconnected",
   roomClosed: false,
+  roomName: null,
   setRoom: (roomId, role) => set({ roomId, role }),
   setConnectionStatus: (connectionStatus) => set({ connectionStatus }),
   setRoomClosed: () => set({ roomClosed: true }),
+  setRoomName: (roomName) => set({ roomName }),
   reset: () =>
-    set({ roomId: null, role: null, connectionStatus: "disconnected", roomClosed: false }),
+    set({ roomId: null, role: null, connectionStatus: "disconnected", roomClosed: false, roomName: null }),
 }));

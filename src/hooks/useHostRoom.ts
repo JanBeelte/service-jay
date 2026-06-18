@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { usePartyRoom } from "./usePartyRoom";
 import { useRoomStore } from "../store/roomStore";
 
-export function useHostRoom(roomId: string) {
+export function useHostRoom(roomId: string, roomName: string) {
   const { send } = usePartyRoom(roomId);
   const { setRoom, connectionStatus } = useRoomStore();
 
@@ -12,7 +12,7 @@ export function useHostRoom(roomId: string) {
 
   useEffect(() => {
     if (connectionStatus === "connected") {
-      send({ type: "host:claim" });
+      send({ type: "host:claim", roomName });
     }
   }, [connectionStatus]);
 

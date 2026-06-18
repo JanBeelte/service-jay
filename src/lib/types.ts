@@ -20,6 +20,7 @@ export interface RoomState {
   orders: Record<string, Order>;
   createdAt: number;
   closedAt?: number;
+  roomName?: string;
 }
 
 export interface MenuItemOption {
@@ -51,7 +52,7 @@ export interface Menu {
 
 // --- Client → Server ---
 export type ClientMessage =
-  | { type: "host:claim" }
+  | { type: "host:claim"; roomName?: string }
   | { type: "guest:join"; guestId: string; guestName: string }
   | { type: "order:place"; order: Omit<Order, "id" | "status" | "fulfilledAt"> }
   | { type: "order:fulfill"; orderId: string }
