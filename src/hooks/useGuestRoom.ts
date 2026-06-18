@@ -32,13 +32,15 @@ export function useGuestRoom(roomId: string, guestName: string) {
     }
   }, [connectionStatus]);
 
-  function placeOrder(drinkId: string, drinkName: string, quantity: number) {
+  function placeOrder(drinkId: string, drinkName: string, quantity: number, note?: string, selectedOptions?: string[]) {
     const order: Omit<Order, "id" | "status" | "fulfilledAt"> = {
       guestId,
       guestName,
       drinkId,
       drinkName,
       quantity,
+      ...(note ? { note } : {}),
+      ...(selectedOptions?.length ? { selectedOptions } : {}),
       placedAt: Date.now(),
     };
     send({ type: "order:place", order });

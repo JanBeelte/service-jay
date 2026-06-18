@@ -7,6 +7,8 @@ export interface Order {
   drinkId: string;
   drinkName: string;
   quantity: number;
+  note?: string;
+  selectedOptions?: string[];
   status: OrderStatus;
   placedAt: number;
   fulfilledAt?: number;
@@ -20,12 +22,20 @@ export interface RoomState {
   closedAt?: number;
 }
 
+export interface MenuItemOption {
+  id: string;
+  label: string;
+  type: "checkbox";
+}
+
 export interface MenuItem {
   id: string;
   name: string;
   description: string;
   emoji: string;
   available: boolean;
+  freeText?: boolean;
+  options?: MenuItemOption[];
 }
 
 export interface MenuCategory {

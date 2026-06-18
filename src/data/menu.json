@@ -26,8 +26,8 @@
       ]
     },
     {
-      "id": "spirits",
-      "label": "Spirits & Cocktails",
+      "id": "cocktails",
+      "label": "Cocktails",
       "items": [
         {
           "id": "gin-tonic",
@@ -35,7 +35,6 @@
           "description": "",
           "emoji": "🍸",
           "available": true,
-          "options": [],
           "freeText": true
         },
         {
@@ -44,18 +43,23 @@
           "description": "",
           "emoji": "🥤",
           "available": true,
+          "freeText": true,
           "options": [
-            { "id": "zero", "label": "Zero", "type": "checkbox" }
-          ],
-          "freeText": true
-        },
+            { "id": "zero", "label": "Zero Cola", "type": "checkbox" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "spirits",
+      "label": "Spirits",
+      "items": [
         {
           "id": "whisky-of-the-day",
           "name": "Whisky of the Day",
           "description": "",
           "emoji": "🥃",
           "available": true,
-          "options": [],
           "freeText": true
         },
         {
@@ -64,7 +68,6 @@
           "description": "",
           "emoji": "🥃",
           "available": true,
-          "options": [],
           "freeText": true
         }
       ]

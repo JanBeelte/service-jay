@@ -5,7 +5,7 @@ import { DrinkCard } from "./DrinkCard";
 const menu = menuData as Menu;
 
 interface Props {
-  onOrder: (drinkId: string, drinkName: string, quantity: number) => void;
+  onOrder: (drinkId: string, drinkName: string, quantity: number, note?: string, selectedOptions?: string[]) => void;
 }
 
 export function DrinkMenu({ onOrder }: Props) {

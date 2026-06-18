@@ -1,5 +1,12 @@
 import { CheckCircle2, Clock, Ban } from "lucide-react";
 import type { Order } from "../../lib/types";
+import menuData from "../../data/menu.json";
+import type { Menu } from "../../lib/types";
+
+const allOptions = (menuData as Menu).categories
+  .flatMap((c) => c.items)
+  .flatMap((i) => i.options ?? [])
+  .reduce<Record<string, string>>((acc, o) => { acc[o.id] = o.label; return acc; }, {});
 
 interface Props {
   order: Order;
@@ -19,6 +26,18 @@ export function OrderCard({ order, onFulfill, onUnavailable }: Props) {
         <span className="font-semibold text-white truncate block">
           {order.quantity}× {order.drinkName}
         </span>
+        {order.selectedOptions && order.selectedOptions.length > 0 && (
+          <div className="flex flex-wrap gap-1 mt-1">
+            {order.selectedOptions.map((id) => (
+              <span key={id} className="px-1.5 py-0.5 rounded bg-slate-700 text-amber-300 text-xs font-medium">
+                {allOptions[id] ?? id}
+              </span>
+            ))}
+          </div>
+        )}
+        {order.note && (
+          <p className="text-amber-300 text-sm mt-0.5 truncate">"{order.note}"</p>
+        )}
         <div className="flex items-center gap-1.5 mt-1">
           <span className="text-slate-400 text-sm truncate">{order.guestName}</span>
           <span className="text-slate-600 text-sm">·</span>
