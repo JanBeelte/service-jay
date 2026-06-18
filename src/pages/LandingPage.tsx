@@ -13,7 +13,6 @@ type Tab = "create" | "join";
 export default function LandingPage() {
   const [tab, setTab] = useState<Tab>("create");
   const [scannerOpen, setScannerOpen] = useState(false);
-  const [guestName, setGuestName] = useState("");
   const navigate = useNavigate();
 
   function handleCreateRoom() {
@@ -74,14 +73,6 @@ export default function LandingPage() {
 
           {tab === "join" && (
             <div className="flex flex-col gap-4">
-              <input
-                type="text"
-                value={guestName}
-                onChange={(e) => setGuestName(e.target.value)}
-                placeholder="Your name"
-                maxLength={30}
-                className="w-full bg-slate-700 border border-slate-600 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400"
-              />
               <RoomIdInput />
               <div className="relative flex items-center gap-3">
                 <div className="flex-1 h-px bg-slate-700" />

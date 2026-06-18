@@ -1,111 +1,71 @@
 {
-  "version": 1,
+  "version": 2,
   "categories": [
     {
       "id": "beer",
-      "label": "Beer",
+      "label": "Bier",
       "items": [
         {
-          "id": "pilsner",
-          "name": "Pilsner",
-          "description": "Classic Czech lager",
+          "id": "bier",
+          "name": "Bier",
+          "description": "",
           "emoji": "🍺",
-          "available": true
-        },
-        {
-          "id": "hefeweizen",
-          "name": "Hefeweizen",
-          "description": "Unfiltered wheat beer",
-          "emoji": "🍺",
-          "available": true
+          "available": true,
+          "options": [],
+          "freeText": true
         },
         {
           "id": "ipa",
           "name": "IPA",
           "description": "Hoppy India Pale Ale",
           "emoji": "🍺",
-          "available": true
+          "available": true,
+          "options": [],
+          "freeText": true
         }
       ]
     },
     {
-      "id": "wine",
-      "label": "Wine",
+      "id": "spirits",
+      "label": "Spirits & Cocktails",
       "items": [
         {
-          "id": "rose",
-          "name": "Rosé",
-          "description": "Chilled house rosé",
-          "emoji": "🍷",
-          "available": true
+          "id": "gin-tonic",
+          "name": "Gin Tonic",
+          "description": "",
+          "emoji": "🍸",
+          "available": true,
+          "options": [],
+          "freeText": true
         },
         {
-          "id": "white",
-          "name": "White Wine",
-          "description": "Crisp Sauvignon Blanc",
-          "emoji": "🥂",
-          "available": true
-        },
-        {
-          "id": "red",
-          "name": "Red Wine",
-          "description": "Full-bodied Merlot",
-          "emoji": "🍷",
-          "available": true
-        }
-      ]
-    },
-    {
-      "id": "cocktails",
-      "label": "Cocktails",
-      "items": [
-        {
-          "id": "mojito",
-          "name": "Mojito",
-          "description": "Rum, mint, lime, soda",
-          "emoji": "🍹",
-          "available": true
-        },
-        {
-          "id": "spritz",
-          "name": "Aperol Spritz",
-          "description": "Aperol, prosecco, orange",
-          "emoji": "🍊",
-          "available": true
-        }
-      ]
-    },
-    {
-      "id": "soft",
-      "label": "Soft Drinks",
-      "items": [
-        {
-          "id": "water",
-          "name": "Still Water",
-          "description": "500ml bottle",
-          "emoji": "💧",
-          "available": true
-        },
-        {
-          "id": "sparkling",
-          "name": "Sparkling Water",
-          "description": "500ml bottle",
-          "emoji": "💦",
-          "available": true
-        },
-        {
-          "id": "cola",
-          "name": "Cola",
-          "description": "330ml can",
+          "id": "rum-cola",
+          "name": "Rum Cola",
+          "description": "",
           "emoji": "🥤",
-          "available": true
+          "available": true,
+          "options": [
+            { "id": "zero", "label": "Zero", "type": "checkbox" }
+          ],
+          "freeText": true
         },
         {
-          "id": "juice",
-          "name": "Orange Juice",
-          "description": "Freshly squeezed",
-          "emoji": "🍊",
-          "available": true
+          "id": "whisky-of-the-day",
+          "name": "Whisky of the Day",
+          "description": "",
+          "emoji": "🥃",
+          "available": true,
+          "options": [],
+          "freeText": true
+        },
+        {
+          "id": "rum-of-the-day",
+          "name": "Rum of the Day",
+          "description": "",
+          "emoji": "🥃",
+          "available": true,
+          "options": [],
+          "freeText": true
         }
       ]
     }
