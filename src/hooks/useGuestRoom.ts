@@ -6,10 +6,10 @@ import { generateGuestId } from "../lib/roomId";
 import type { Order } from "../lib/types";
 
 function getOrCreateGuestId(): string {
-  let id = sessionStorage.getItem("guestId");
+  let id = localStorage.getItem("guestId");
   if (!id) {
     id = generateGuestId();
-    sessionStorage.setItem("guestId", id);
+    localStorage.setItem("guestId", id);
   }
   return id;
 }

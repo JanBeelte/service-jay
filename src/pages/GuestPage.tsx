@@ -12,11 +12,11 @@ import logo from "../../service-jay.png";
 const LAST_ROOM_KEY = "lastGuestRoom";
 
 function getStoredName(): string {
-  return sessionStorage.getItem("guestName") ?? "";
+  return localStorage.getItem("guestName") ?? "";
 }
 
 function saveName(name: string) {
-  sessionStorage.setItem("guestName", name);
+  localStorage.setItem("guestName", name);
 }
 
 export function saveLastRoom(roomId: string, guestName: string) {

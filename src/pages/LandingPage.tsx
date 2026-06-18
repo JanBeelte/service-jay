@@ -22,7 +22,6 @@ export default function LandingPage() {
     try {
       const { roomId, guestName } = JSON.parse(raw) as { roomId: string; guestName: string };
       if (roomId && guestName) {
-        sessionStorage.setItem("guestName", guestName);
         navigate(`/guest/${roomId}`, { replace: true });
       }
     } catch {
