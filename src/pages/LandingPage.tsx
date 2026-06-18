@@ -12,7 +12,7 @@ const QRScanner = lazy(() =>
 type Tab = "create" | "join";
 
 export default function LandingPage() {
-  const [tab, setTab] = useState<Tab>("create");
+  const [tab, setTab] = useState<Tab>("join");
   const [scannerOpen, setScannerOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -48,16 +48,6 @@ export default function LandingPage() {
         <div className="w-full bg-slate-800 rounded-2xl p-6 flex flex-col gap-5">
           <div className="flex bg-slate-700 rounded-xl p-1">
             <button
-              onClick={() => setTab("create")}
-              className={`flex-1 py-2 rounded-lg text-sm font-medium transition-colors ${
-                tab === "create"
-                  ? "bg-amber-500 text-slate-900"
-                  : "text-slate-400 hover:text-white"
-              }`}
-            >
-              Host a Room
-            </button>
-            <button
               onClick={() => setTab("join")}
               className={`flex-1 py-2 rounded-lg text-sm font-medium transition-colors ${
                 tab === "join"
@@ -66,6 +56,16 @@ export default function LandingPage() {
               }`}
             >
               Join a Room
+            </button>
+            <button
+              onClick={() => setTab("create")}
+              className={`flex-1 py-2 rounded-lg text-sm font-medium transition-colors ${
+                tab === "create"
+                  ? "bg-amber-500 text-slate-900"
+                  : "text-slate-400 hover:text-white"
+              }`}
+            >
+              Host a Room
             </button>
           </div>
 
