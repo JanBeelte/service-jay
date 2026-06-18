@@ -1,7 +1,7 @@
 import { useState } from "react";
 import type { Menu, MenuCategory, MenuItem, MenuItemOption } from "../../lib/types";
 import defaultMenuData from "../../data/menu.json";
-import { X, Plus, Trash2 } from "lucide-react";
+import { X, Plus, Trash2, Download, Upload } from "lucide-react";
 
 interface Props {
   currentMenu: Menu | null;
@@ -95,14 +95,53 @@ export function MenuEditor({ currentMenu, onSave, onClose }: Props) {
     onSave({ ...menu, version: (menu.version ?? 1) + 1 });
   }
 
+  function handleExport() {
+    const blob = new Blob([JSON.stringify(menu, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "menu.json";
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  function handleImport(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      try {
+        const parsed = JSON.parse(ev.target?.result as string) as Menu;
+        setMenu(parsed);
+      } catch {
+        alert("Invalid menu JSON file.");
+      }
+    };
+    reader.readAsText(file);
+    e.target.value = "";
+  }
+
   return (
     <div className="fixed inset-0 z-50 flex items-start justify-center bg-black/60 overflow-y-auto p-4">
       <div className="w-full max-w-lg bg-slate-900 rounded-2xl border border-slate-700 my-4">
         <div className="flex items-center justify-between px-5 py-4 border-b border-slate-800">
           <h2 className="text-white font-bold text-lg">Edit Menu</h2>
-          <button onClick={onClose} className="text-slate-400 hover:text-white transition-colors">
-            <X className="w-5 h-5" />
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={handleExport}
+              className="text-slate-400 hover:text-amber-400 transition-colors p-1"
+              title="Export menu.json"
+            >
+              <Download className="w-4 h-4" />
+            </button>
+            <label className="text-slate-400 hover:text-amber-400 transition-colors p-1 cursor-pointer" title="Import menu.json">
+              <Upload className="w-4 h-4" />
+              <input type="file" accept=".json,application/json" onChange={handleImport} className="hidden" />
+            </label>
+            <button onClick={onClose} className="text-slate-400 hover:text-white transition-colors p-1">
+              <X className="w-5 h-5" />
+            </button>
+          </div>
         </div>
 
         <div className="p-5 flex flex-col gap-6">
