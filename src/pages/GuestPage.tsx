@@ -9,12 +9,22 @@ import { ConnectionDot } from "../components/shared/ConnectionDot";
 import { ArrowLeft } from "lucide-react";
 import logo from "../../service-jay.png";
 
+const LAST_ROOM_KEY = "lastGuestRoom";
+
 function getStoredName(): string {
   return sessionStorage.getItem("guestName") ?? "";
 }
 
 function saveName(name: string) {
   sessionStorage.setItem("guestName", name);
+}
+
+export function saveLastRoom(roomId: string, guestName: string) {
+  localStorage.setItem(LAST_ROOM_KEY, JSON.stringify({ roomId, guestName }));
+}
+
+export function clearLastRoom() {
+  localStorage.removeItem(LAST_ROOM_KEY);
 }
 
 export default function GuestPage() {
@@ -38,7 +48,7 @@ export default function GuestPage() {
           <p className="text-white font-semibold text-lg">Room closed</p>
           <p className="text-slate-400 text-sm mt-1">The host has ended this session.</p>
           <button
-            onClick={() => navigate("/")}
+            onClick={() => { clearLastRoom(); navigate("/"); }}
             className="mt-6 px-6 py-3 rounded-xl bg-amber-500 text-slate-900 font-semibold"
           >
             Back to Home
@@ -63,6 +73,7 @@ export default function GuestPage() {
               const name = inputName.trim();
               if (name) {
                 saveName(name);
+                saveLastRoom(roomId!, name);
                 setGuestName(name);
                 setNameConfirmed(true);
               }
@@ -95,7 +106,7 @@ export default function GuestPage() {
     <div className="min-h-screen bg-slate-900 flex flex-col">
       <header className="bg-slate-900 border-b border-slate-800 px-5 py-4 flex items-center gap-3 sticky top-0 z-10">
         <button
-          onClick={() => navigate("/")}
+          onClick={() => { clearLastRoom(); navigate("/"); }}
           className="text-slate-400 hover:text-white transition-colors"
         >
           <ArrowLeft className="w-5 h-5" />

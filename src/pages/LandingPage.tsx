@@ -1,4 +1,4 @@
-import { lazy, Suspense, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { generateRoomId } from "../lib/roomId";
 import { RoomIdInput } from "../components/shared/RoomIdInput";
@@ -15,6 +15,20 @@ export default function LandingPage() {
   const [tab, setTab] = useState<Tab>("create");
   const [scannerOpen, setScannerOpen] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const raw = localStorage.getItem("lastGuestRoom");
+    if (!raw) return;
+    try {
+      const { roomId, guestName } = JSON.parse(raw) as { roomId: string; guestName: string };
+      if (roomId && guestName) {
+        sessionStorage.setItem("guestName", guestName);
+        navigate(`/guest/${roomId}`, { replace: true });
+      }
+    } catch {
+      localStorage.removeItem("lastGuestRoom");
+    }
+  }, [navigate]);
 
   function handleCreateRoom() {
     const roomId = generateRoomId();
