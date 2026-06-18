@@ -23,12 +23,14 @@ export function QRScanner() {
           (decodedText: string) => {
             // Extract room ID from URL hash or plain 6-char code
             const match = decodedText.match(/\/guest\/([A-Z0-9]{6})/i);
-            if (match) {
-              scanner.stop().catch(() => {});
-              navigate(`/guest/${match[1].toUpperCase()}`);
-            } else if (/^[A-Z0-9]{6}$/i.test(decodedText.trim())) {
-              scanner.stop().catch(() => {});
-              navigate(`/guest/${decodedText.trim().toUpperCase()}`);
+            const code = match
+              ? match[1].toUpperCase()
+              : /^[A-Z0-9]{6}$/i.test(decodedText.trim())
+              ? decodedText.trim().toUpperCase()
+              : null;
+            if (code) {
+              scannerRef.current = null;
+              scanner.stop().catch(() => {}).finally(() => navigate(`/guest/${code}`));
             }
           },
           () => {}

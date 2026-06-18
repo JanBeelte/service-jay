@@ -71,12 +71,12 @@ export default function LandingPage() {
 
           {tab === "join" && (
             <div className="flex flex-col gap-4">
-              <RoomIdInput />
-              <div className="relative flex items-center gap-3">
-                <div className="flex-1 h-px bg-slate-700" />
-                <span className="text-slate-500 text-xs">or</span>
-                <div className="flex-1 h-px bg-slate-700" />
-              </div>
+              {scannerOpen && (
+                <Suspense fallback={<div className="text-slate-500 text-sm text-center">Loading camera…</div>}>
+                  <QRScanner />
+                </Suspense>
+              )}
+
               <button
                 onClick={() => setScannerOpen((v) => !v)}
                 className="flex items-center justify-center gap-2 w-full py-3 rounded-xl border border-slate-600 text-slate-300 hover:text-white hover:border-slate-500 transition-colors text-sm font-medium"
@@ -85,11 +85,12 @@ export default function LandingPage() {
                 {scannerOpen ? "Close Scanner" : "Scan QR Code"}
               </button>
 
-              {scannerOpen && (
-                <Suspense fallback={<div className="text-slate-500 text-sm text-center">Loading camera…</div>}>
-                  <QRScanner />
-                </Suspense>
-              )}
+              <div className="relative flex items-center gap-3">
+                <div className="flex-1 h-px bg-slate-700" />
+                <span className="text-slate-500 text-xs">or</span>
+                <div className="flex-1 h-px bg-slate-700" />
+              </div>
+              <RoomIdInput />
             </div>
           )}
         </div>
