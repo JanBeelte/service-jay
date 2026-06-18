@@ -7,6 +7,7 @@ import { GuestOrderList } from "../components/guest/GuestOrderList";
 import { FulfilledBanner } from "../components/shared/FulfilledBanner";
 import { ConnectionDot } from "../components/shared/ConnectionDot";
 import { ArrowLeft } from "lucide-react";
+import logo from "../../service-jay.png";
 
 function getStoredName(): string {
   return sessionStorage.getItem("guestName") ?? "";
@@ -106,7 +107,8 @@ export default function GuestPage() {
       </header>
 
       <main className="flex-1 p-5 flex flex-col gap-5 max-w-lg mx-auto w-full pb-8">
-        <div className="pt-2 pb-1">
+        <div className="pt-2 pb-1 flex items-center gap-3">
+          <img src={logo} alt="Service Jay" className="w-12 h-12 rounded-xl shrink-0" />
           <h1 className="text-white font-bold text-3xl leading-tight">{roomName ?? "Order Drinks"}</h1>
         </div>
         <GuestOrderList />

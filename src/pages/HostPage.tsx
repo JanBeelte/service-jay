@@ -5,6 +5,7 @@ import { useRoomStore } from "../store/roomStore";
 import { RoomHeader } from "../components/host/RoomHeader";
 import { OrderList } from "../components/host/OrderList";
 import { LogOut } from "lucide-react";
+import logo from "../../service-jay.png";
 
 function getStoredRoomName(): string {
   return sessionStorage.getItem("roomName") ?? "";
@@ -87,9 +88,12 @@ export default function HostPage() {
   return (
     <div className="min-h-screen bg-slate-900 flex flex-col">
       <header className="bg-slate-900 border-b border-slate-800 px-5 py-4 flex items-center justify-between sticky top-0 z-10">
-        <div>
-          <h1 className="text-white font-bold text-2xl leading-tight">{roomName}</h1>
-          <p className="text-slate-500 text-xs">Host Dashboard</p>
+        <div className="flex items-center gap-3">
+          <img src={logo} alt="Service Jay" className="w-10 h-10 rounded-xl shrink-0" />
+          <div>
+            <h1 className="text-white font-bold text-2xl leading-tight">{roomName}</h1>
+            <p className="text-slate-500 text-xs">Host Dashboard</p>
+          </div>
         </div>
         <button
           onClick={() => {

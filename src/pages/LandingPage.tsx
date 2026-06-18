@@ -2,7 +2,8 @@ import { lazy, Suspense, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { generateRoomId } from "../lib/roomId";
 import { RoomIdInput } from "../components/shared/RoomIdInput";
-import { Martini, QrCode } from "lucide-react";
+import { QrCode } from "lucide-react";
+import logo from "../../service-jay.png";
 
 const QRScanner = lazy(() =>
   import("../components/guest/QRScanner").then((m) => ({ default: m.QRScanner }))
@@ -25,10 +26,7 @@ export default function LandingPage() {
       <div className="w-full max-w-sm flex flex-col items-center gap-8">
         {/* Logo */}
         <div className="flex flex-col items-center gap-2">
-          <div className="w-16 h-16 bg-amber-500 rounded-2xl flex items-center justify-center shadow-lg">
-            <Martini className="w-9 h-9 text-slate-900" />
-          </div>
-          <h1 className="text-2xl font-bold text-white">Service Jay</h1>
+          <img src={logo} alt="Service Jay" className="w-56 h-56 rounded-3xl shadow-lg" />
           <p className="text-slate-400 text-sm text-center">Order drinks right from your table</p>
         </div>
 
