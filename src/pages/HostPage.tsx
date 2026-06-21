@@ -8,19 +8,32 @@ import { MenuEditor } from "../components/host/MenuEditor";
 import { LogOut, UtensilsCrossed } from "lucide-react";
 import logo from "../../service-jay.png";
 
-function getStoredRoomName(): string {
-  return sessionStorage.getItem("roomName") ?? "";
+const LAST_HOST_ROOM_KEY = "lastHostRoom";
+
+function getStoredRoomName(roomId: string): string {
+  try {
+    const raw = localStorage.getItem(LAST_HOST_ROOM_KEY);
+    if (!raw) return "";
+    const { roomId: storedId, roomName } = JSON.parse(raw) as { roomId: string; roomName: string };
+    return storedId === roomId ? roomName : "";
+  } catch {
+    return "";
+  }
 }
 
-function saveRoomName(name: string) {
-  sessionStorage.setItem("roomName", name);
+function saveLastHostRoom(roomId: string, roomName: string) {
+  localStorage.setItem(LAST_HOST_ROOM_KEY, JSON.stringify({ roomId, roomName }));
+}
+
+export function clearLastHostRoom() {
+  localStorage.removeItem(LAST_HOST_ROOM_KEY);
 }
 
 export default function HostPage() {
   const { roomId } = useParams<{ roomId: string }>();
   const navigate = useNavigate();
-  const [roomName, setRoomName] = useState(getStoredRoomName);
-  const [nameConfirmed, setNameConfirmed] = useState(() => getStoredRoomName().length > 0);
+  const [roomName, setRoomName] = useState(() => getStoredRoomName(roomId!));
+  const [nameConfirmed, setNameConfirmed] = useState(() => getStoredRoomName(roomId!).length > 0);
   const [inputName, setInputName] = useState("Service-Jay");
 
   const [menuEditorOpen, setMenuEditorOpen] = useState(false);
@@ -68,7 +81,7 @@ export default function HostPage() {
               e.preventDefault();
               const name = inputName.trim();
               if (name) {
-                saveRoomName(name);
+                saveLastHostRoom(roomId!, name);
                 setRoomName(name);
                 setNameConfirmed(true);
               }
@@ -118,6 +131,7 @@ export default function HostPage() {
           <button
             onClick={() => {
               if (confirm("Close this room? All guests will be disconnected.")) {
+                clearLastHostRoom();
                 closeRoom();
               }
             }}

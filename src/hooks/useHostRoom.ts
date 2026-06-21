@@ -1,14 +1,17 @@
 import { useEffect } from "react";
 import { usePartyRoom } from "./usePartyRoom";
 import { useRoomStore } from "../store/roomStore";
+import { useOrderStore } from "../store/orderStore";
 import type { Menu } from "../lib/types";
 
 export function useHostRoom(roomId: string, roomName: string) {
   const { send } = usePartyRoom(roomId);
   const { setRoom, connectionStatus } = useRoomStore();
+  const resetOrders = useOrderStore((s) => s.reset);
 
   useEffect(() => {
     setRoom(roomId, "host");
+    resetOrders();
   }, [roomId]);
 
   useEffect(() => {

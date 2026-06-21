@@ -17,15 +17,23 @@ export default function LandingPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const raw = localStorage.getItem("lastGuestRoom");
-    if (!raw) return;
-    try {
-      const { roomId, guestName } = JSON.parse(raw) as { roomId: string; guestName: string };
-      if (roomId && guestName) {
-        navigate(`/guest/${roomId}`, { replace: true });
+    const hostRaw = localStorage.getItem("lastHostRoom");
+    if (hostRaw) {
+      try {
+        const { roomId } = JSON.parse(hostRaw) as { roomId: string; roomName: string };
+        if (roomId) { navigate(`/host/${roomId}`, { replace: true }); return; }
+      } catch {
+        localStorage.removeItem("lastHostRoom");
       }
-    } catch {
-      localStorage.removeItem("lastGuestRoom");
+    }
+    const guestRaw = localStorage.getItem("lastGuestRoom");
+    if (guestRaw) {
+      try {
+        const { roomId, guestName } = JSON.parse(guestRaw) as { roomId: string; guestName: string };
+        if (roomId && guestName) { navigate(`/guest/${roomId}`, { replace: true }); return; }
+      } catch {
+        localStorage.removeItem("lastGuestRoom");
+      }
     }
   }, [navigate]);
 

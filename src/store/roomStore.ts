@@ -26,7 +26,7 @@ export const useRoomStore = create<RoomStore>((set) => ({
   roomClosed: false,
   roomName: null,
   menu: null,
-  setRoom: (roomId, role) => set({ roomId, role }),
+  setRoom: (roomId, role) => set({ roomId, role, roomClosed: false, roomName: null, menu: null }),
   setConnectionStatus: (connectionStatus) => set({ connectionStatus }),
   setRoomClosed: () => set({ roomClosed: true }),
   setRoomName: (roomName) => set({ roomName }),

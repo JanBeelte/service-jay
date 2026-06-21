@@ -24,7 +24,7 @@ export function useGuestRoom(roomId: string, guestName: string) {
   useEffect(() => {
     setRoom(roomId, "guest");
     setMyGuestId(guestId);
-  }, [roomId, guestId]);
+  }, [roomId]);
 
   useEffect(() => {
     if (connectionStatus === "connected") {
